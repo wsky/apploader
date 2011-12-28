@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<project name="zookeeper.net" default="build">
+  <!--path-->
+  <property name="dir" value="."/>
+  <property name="dir.full" value="${path::get-full-path(dir)}"/>
+  <property name="build.base" value="build"/>
+  <property name="build.absolutepath" value="${path::get-full-path(build.base)}" />
+
+  <!--msbuild-->
+  <property name="msbuild" value="C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe" />
+  <property name="msbuild.params" 
+            value="/t:rebuild 
+            /p:Configuration=Release
+            /p:AllowUnsafeBlocks=true
+            /t:ResolveReferences" />
+  <property name="msbuild.params.output" value="/p:OutputPath=${build.absolutepath}" />
+ 
+  <target name="clean" description="clean build folder">
+    <delete dir="${build.absolutepath}"></delete>
+  </target>
+
+  <target name="build" description="">
+    <exec program="${msbuild}"
+          commandline="${msbuild.params} ${msbuild.params.output}
+          /p:DocumentationFile=${build.absolutepath}\ZooKeeperNet.Xml"
+          workingdir="${dir}\ZooKeeperNet" />
+    <copy todir="${build.absolutepath}\bin">
+      <fileset basedir="${build.absolutepath}">
+        <include name="ZooKeeperNet.*" />
+      </fileset>
+    </copy>
+    <exec program="${msbuild}"
+          commandline="${msbuild.params} ${msbuild.params.output}
+          /p:DocumentationFile=${build.absolutepath}\ZooKeeperNet.Recipes.Xml"
+          workingdir="${dir}\ZooKeeperNet.Recipes" />
+    <copy todir="${build.absolutepath}\bin">
+      <fileset basedir="${build.absolutepath}">
+        <include name="ZooKeeperNet.Recipes.*" />
+      </fileset>
+    </copy>
+  </target>    
+ 
+</project>
