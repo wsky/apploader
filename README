@@ -1,0 +1,10 @@
+Alter Apploader
+
+portable app server written by c#.
+easy to write a program running with console or windows service.
+
+license:
+http://www.apache.org/licenses/LICENSE-2.0
+
+by wsky
+2011.12.28

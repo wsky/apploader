@@ -19,25 +19,20 @@
     <delete dir="${build.absolutepath}"></delete>
   </target>
 
-  <target name="build" description="">
+  <target name="apploader" description="AppDomainLoader">
     <exec program="${msbuild}"
-          commandline="${msbuild.params} ${msbuild.params.output}
-          /p:DocumentationFile=${build.absolutepath}\ZooKeeperNet.Xml"
-          workingdir="${dir}\ZooKeeperNet" />
-    <copy todir="${build.absolutepath}\bin">
-      <fileset basedir="${build.absolutepath}">
-        <include name="ZooKeeperNet.*" />
+          commandline="${msbuild.params} ${msbuild.params.output}\apploader"
+          workingdir="${dir}\src\Alter.WinService" />
+    <delete dir="${build.absolutepath}\apploader\bin" />
+    <delete>
+      <fileset>
+        <include name="${build.absolutepath}\apploader\KeekAlive" />
+        <include name="${build.absolutepath}\apploader\*.pdb" />
+        <include name="${build.absolutepath}\apploader\*.xml" />
+        <include name="${build.absolutepath}\apploader\*.manifest" />
+        <include name="${build.absolutepath}\apploader\*.application" />
       </fileset>
-    </copy>
-    <exec program="${msbuild}"
-          commandline="${msbuild.params} ${msbuild.params.output}
-          /p:DocumentationFile=${build.absolutepath}\ZooKeeperNet.Recipes.Xml"
-          workingdir="${dir}\ZooKeeperNet.Recipes" />
-    <copy todir="${build.absolutepath}\bin">
-      <fileset basedir="${build.absolutepath}">
-        <include name="ZooKeeperNet.Recipes.*" />
-      </fileset>
-    </copy>
+    </delete>
   </target>    
  
 </project>
